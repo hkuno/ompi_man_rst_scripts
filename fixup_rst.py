@@ -87,7 +87,15 @@ literalpat=re.compile("^::")
 # seealso
 seealso = re.compile("^see also$", flags = re.IGNORECASE )
 mpicmd = re.compile(".*MPI[_A-Z0-9]", flags = re.IGNORECASE )
+mpicmd2 = re.compile(".*MPI", flags = re.IGNORECASE )
 shmemcmd = re.compile(".*shmem[_A-Z0-9]", flags = re.IGNORECASE )
+shmemcmd2 = re.compile(".*shmem", flags = re.IGNORECASE )
+selected = re.compile(".*selected", flags = re.IGNORECASE )
+shared = re.compile(".*shared", flags = re.IGNORECASE )
+socket = re.compile(".*socket", flags = re.IGNORECASE )
+sscanf = re.compile(".*sscanf", flags = re.IGNORECASE )
+verbatim = re.compile("::")
+dblline = re.compile("========")
 
 # languages
 fortran_lang=re.compile(".*Fortran", re.IGNORECASE)
@@ -176,7 +184,12 @@ for i in range(len(in_lines)):
              cmdline=re.sub(r"([Mm][Pp][Ii][^\\ (]*)",seealso_repl,sline)
            elif shmemcmd.match(sline):
              cmdline=re.sub(r"([Ss][Hh][Mm][Ee][Mm][^\\ (]*)",seealso_repl,sline)
-           else: 
+           elif selected.match(sline) or shared.match(sline) or socket.match(sline) or sscanf.match(sline): 
+             cmdline=sline
+           elif verbatim.match(sline) or dblline.match(sline):
+             SKIP += 1
+           else:
+             cmdline=sline
              SKIP += 1
            seealsolist=f"{seealsolist}{cmdline}"
            SKIP += 1
