@@ -108,7 +108,7 @@ def mpicmdrepl(match):
     match = match.group()
     match = match.replace('`','')
     match = match.replace('*','')
-    return (':ref:`' + match + '` ')
+    return (':ref:`' + match + '`')
 
 def seealso_repl(match):
     thecmd = match.group(1)

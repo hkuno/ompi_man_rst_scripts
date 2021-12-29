@@ -73,7 +73,7 @@ def seealso_repl(match):
     thecmd = match.group(2)
     thecmd = thecmd.replace('`','')
     thecmd = thecmd.replace('*','')
-    return (':ref:`' + thecmd + '` ')
+    return (':ref:`' + thecmd + '`')
 
 # Read input as an array of lines
 with open(in_fname) as fp:
