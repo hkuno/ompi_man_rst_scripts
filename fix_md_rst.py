@@ -22,6 +22,7 @@ import os
 
 APPNAME=os.path.basename(__file__)
 DIRNAME=os.path.dirname(__file__)
+ALLREFSFILE=DIRNAME + "/allrefs.txt"
 
 def usage():
     print(f"{APPNAME} <input_file> [<output_file>]\n")
@@ -35,11 +36,20 @@ out_fname=""
 if (len(sys.argv) > 2):
     out_fname=sys.argv[2]
 
+# Populate list of all labels 
+with open(ALLREFSFILE) as fp:
+    allrefs_list = [line.rstrip('\n') for line in fp]
+
+
 # append to output_lines instead of printing lines
 output_lines = list()
 
+# if current file's CMDNAME is not in list, print out warning
+if not CMDNAME.lower() in allrefs_list:
+  print("WARNING: {} not in allrefs_list\n".format(CMDNAME.lower()))
+
 # Add a reference for each file
-refline=".. _{}:\n".format(CMDNAME)
+refline=".. _{}:\n".format(CMDNAME.lower())
 output_lines.append(refline)
 
 # delimiter line (occurs after the heading text)
@@ -59,21 +69,30 @@ seealso = re.compile("^see also$", flags = re.IGNORECASE )
 mpicmd = re.compile(".*MPI[_A-Z0-9]", flags = re.IGNORECASE )
 shmemcmd = re.compile(".*shmem[_A-Z0-9]", flags = re.IGNORECASE )
 
+# do not add as cross-ref
+function_call=re.compile(".*\(\)", re.IGNORECASE)
+brace_char=re.compile(".*[\]\(\)]", re.IGNORECASE)
+
 # repl functions
 # :ref:`my-reference-label`:
 def mpicmdrepl(match):
     match = match.group()
+    match = match.replace('(3)','')
     match = match.replace('`','')
     match = match.replace('*','')
-#    if (contains_lowercase.match(match)):
-#        seealsodict[match]=match
-    return (':ref:`' + match + '` ')
+    if match.lower() in allrefs_list:
+        return (':ref:`' + match + '`')
+    else:
+        return (match)
 
 def seealso_repl(match):
     thecmd = match.group(2)
     thecmd = thecmd.replace('`','')
     thecmd = thecmd.replace('*','')
-    return (':ref:`' + thecmd + '`')
+    if thecmd.lower() in allrefs_list:
+        return (':ref:`' + thecmd + '` ')
+    else:
+        return (thecmd)
 
 # Read input as an array of lines
 with open(in_fname) as fp:

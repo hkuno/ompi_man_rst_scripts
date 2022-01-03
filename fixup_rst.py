@@ -9,8 +9,10 @@
 #  - Replace the top-level NAME heading with the name of the man page.
 #
 # Cross References
-#  - Turn MPI_* and shmem_* into cross references if not in a literal section.
-#  - Add reference labels to rst files:   :ref:`my-reference-label`:
+#  - Put list of labels from all files into a dictionary, then turn MPI_*
+#    and shmem_* into cross reference labels if in that dictionary and 
+#    not in a literal section:
+#        :ref:`my-reference-label`:
 #
 # Special sections (code blocks, parameter lists)
 #  - Put parameters are on a single line: * ``parameter``:  description
@@ -31,6 +33,7 @@ from pathlib import Path
 
 APPNAME=os.path.basename(__file__)
 DIRNAME=os.path.dirname(__file__)
+ALLREFSFILE=DIRNAME + "/allrefs.txt"
 
 def usage():
     print(f"{APPNAME} <input_file> [<output_file>]\n")
@@ -46,8 +49,16 @@ if (len(sys.argv) > 2):
 
 output_lines = list()
 
+# Populate list of all labels 
+with open(ALLREFSFILE) as fp:
+    allrefs_list = [line.rstrip('\n') for line in fp]
+
+# if current file's CMDNAME is not in list, print out warning
+if not CMDNAME.lower() in allrefs_list:
+  print("WARNING: {} not in allrefs_list\n".format(CMDNAME.lower()))
+
 # Add a reference for each file to enable cross-references
-refline=".. _{}:\n".format(CMDNAME)
+refline=".. _{}:\n".format(CMDNAME.lower())
 output_lines.append(refline)
 
 # Read input as an array of lines
@@ -106,15 +117,22 @@ c_lang=re.compile(".*C[^a-zA-Z]", re.IGNORECASE)
 # :ref:`my-reference-label`:
 def mpicmdrepl(match):
     match = match.group()
+    match = match.replace('(3)','')
     match = match.replace('`','')
     match = match.replace('*','')
-    return (':ref:`' + match + '`')
+    if match.lower() in allrefs_list:
+        return (':ref:`' + match + '`')
+    else:
+        return (match)
 
 def seealso_repl(match):
     thecmd = match.group(1)
     thecmd = thecmd.replace('`','')
     thecmd = thecmd.replace('*','')
-    return (':ref:`' + thecmd + '` ')
+    if thecmd.lower() in allrefs_list:
+        return (':ref:`' + thecmd + '` ')
+    else:
+        return (thecmd)
 
 # for labeling codeblocks
 LANGUAGE="FOOBAR_ERROR"

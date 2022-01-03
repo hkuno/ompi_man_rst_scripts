@@ -27,10 +27,11 @@ MDTMPRST=$( cd $MDTMPRST; pwd -P )
 BUILDRST=./rst/
 mkdir -p $BUILDDIR
 mkdir -p $BUILDRST
-[[ -f $BUILDDIR/rst ]] || ln -s ../rst $BUILDDIR/
+[[ -d ../rst ]] || mkdir -p ../rst
+[[ -L $BUILDDIR/rst ]] || [[ -f $BUILDDIR/rst ]] || ln -sf ../rst $BUILDDIR/
 
 BUILDHTML=./_build/html/
-MANDIRS="ompi/mpi/man oshmem/shmem/man"
+MANDIRS="ompi/mpi/man oshmem/shmem/man opal/tools/wrappers"
 
 TSTMAN_ORIG=$TMPDIR/tmpman_orig/
 TSTMAN_NEW=$TMPDIR/tmpman_new/
@@ -54,23 +55,26 @@ if [[ 1 -eq 1 ]] ; then
         for f in $( find $d -name \*.\*in ) ; do
             f2=$( echo $f | sed -e "s/\.\([0-9]*\)in/.\1/" )
             out=$TMPRST/${f2}.rst
-            echo "converting $f to $out" >> $ERRORFILE
             # force .so nroff into: .. include:: filename
             if [[ $( grep -w '^\.so' $f | wc -l ) -eq 1 ]] ; then
                 out=$BUILDRST/${f2}.rst
+                echo "converting $f to $out" >> $ERRORFILE
                 mkdir -p $( dirname $out )
                 fname=$( grep -w '^\.so' $f | awk '{printf"%s.rst",$2}' )
                 [[ -z "${fname}" ]] && echo "WARNING: ERROR: See $fname"
-                pname=$( basename $out | awk -F\. '{print $1}' )
+                pname=$( basename $out | awk -F\. '{print $1}' | tr 'A-Z' 'a-z')
                 delim=$( echo $pname | sed -e "s/[a-z,A-Z,0-9,_,\-]/=/g" )
                 echo ".. _${pname}:" > $out
+                echo " " >> $out
                 echo $delim >> $out
                 echo $pname >> $out
                 echo $delim >> $out
-                echo " " >> $out
+                echo "" >> $out
                 echo ".. include:: ../${fname}" >> $out
+                echo "" >> $out
             else
                 mkdir -p $( dirname $out )
+                echo "converting $f to $out" >> $ERRORFILE
                 cd $( dirname $f )
                 f2=$( basename $f)
                 pandoc -f man -t rst $f2 1> $out 2>> $ERRORFILE

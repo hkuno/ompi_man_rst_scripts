@@ -100,7 +100,7 @@ for path in Path('./').rglob('*.rst'):
     snum=os.path.basename(os.path.dirname(path)).replace('man','')
     if string_is_int(snum):
       lname=(str(path.parent) + '/' + sname.replace('.rst',''))
-      man_pages.append((lname,vsname,vsname,"",int(snum)))
+      man_pages.append((lname,vsname,"","",int(snum)))
 
 print(man_pages)
 
