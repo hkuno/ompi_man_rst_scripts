@@ -55,22 +55,24 @@ if [[ 1 -eq 1 ]] ; then
         for f in $( find $d -name \*.\*in ) ; do
             f2=$( echo $f | sed -e "s/\.\([0-9]*\)in/.\1/" )
             out=$TMPRST/${f2}.rst
-            # force .so nroff into: .. include:: filename
+            # add labels for files that originally included this file
             if [[ $( grep -w '^\.so' $f | wc -l ) -eq 1 ]] ; then
                 out=$BUILDRST/${f2}.rst
                 echo "converting $f to $out" >> $ERRORFILE
                 mkdir -p $( dirname $out )
                 fname=$( grep -w '^\.so' $f | awk '{printf"%s.rst",$2}' )
                 [[ -z "${fname}" ]] && echo "WARNING: ERROR: See $fname"
-                pname=$( basename $out | awk -F\. '{print $1}' | tr 'A-Z' 'a-z')
+                pname=$( basename $out | awk -F\. '{print $1}' )
+                pnamelower=$( echo $pname | tr 'A-Z' 'a-z')
                 delim=$( echo $pname | sed -e "s/[a-z,A-Z,0-9,_,\-]/=/g" )
-                echo ".. _${pname}:" > $out
+                echo ".. _${pnamelower}:" > $out
                 echo " " >> $out
-                echo $delim >> $out
                 echo $pname >> $out
                 echo $delim >> $out
+                echo "    .. include_body" >> $out
                 echo "" >> $out
                 echo ".. include:: ../${fname}" >> $out
+                echo "    :start-after: .. include_body" >> $out
                 echo "" >> $out
             else
                 mkdir -p $( dirname $out )

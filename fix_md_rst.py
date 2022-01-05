@@ -53,7 +53,8 @@ refline=".. _{}:\n".format(CMDNAME.lower())
 output_lines.append(refline)
 
 # delimiter line (occurs after the heading text)
-dline=re.compile("^[=]+")
+dline=re.compile("^[=]+$")
+d2line=re.compile("^[-]+$")
 
 # literal
 codeblock=re.compile("\.\. .*code::")
@@ -124,9 +125,11 @@ for i in range(len(in_lines)):
       # Substitute program name because html index needs it.
       # Only substitute delimeter for the first NAME heading because 
       # build-doc seems to expect a single-rooted hierarchy.
-      output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-]','~',CMDNAME)}")
-      SKIP += 1
+      output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-]','=',CMDNAME)}")
+      output_lines.append(".. include_body")
+      SKIP += 2
       LITERAL=False
+  
   if seealso.match(curline) and dline.match(nextline):
       SKIP += 2
       LITERAL=False
@@ -153,6 +156,10 @@ for i in range(len(in_lines)):
         LITERAL=True
       elif dline.match(curline):
         LITERAL=False
+        curline = re.sub('=','-',curline)
+      elif d2line.match(curline):
+        LITERAL=False
+        curline = re.sub('-','^',curline)
 
       if not LITERAL and curline:
         curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',mpicmdrepl,curline)

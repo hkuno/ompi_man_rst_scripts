@@ -223,12 +223,13 @@ for i in range(len(in_lines)):
             # Substitute program name because html index needs it.
             # Only substitute delimeter for the first NAME heading because 
             # build-doc seems to expect a single-rooted hierarchy.
-            output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-]','~',CMDNAME)}")
+            output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-]','=',CMDNAME)}")
+            output_lines.append(".. include_body")
           else:
-            output_lines.append(f"{curline}\n{nextline}")
+            output_lines.append(f"{curline}\n{re.sub('[A-Z,a-z,0-9,_,-]','-',curline)}")
         else:
           # level 2 heading
-          output_lines.append(f"{curline}\n{re.sub('=','-',nextline)}")
+          output_lines.append(f"{curline}\n{re.sub('=','^',nextline)}")
     elif (literalpat.match(curline)):
           LITERAL=True
           prevlangline=prevline
