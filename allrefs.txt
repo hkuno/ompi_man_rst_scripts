@@ -107,7 +107,6 @@ mpi_file_get_atomicity
 mpi_file_get_byte_offset
 mpi_file_get_errhandler
 mpi_file_get_group
-mpi_file_get_info
 mpi_file_get_position
 mpi_file_get_position_shared
 mpi_file_get_size
@@ -123,7 +122,6 @@ mpi_file_iwrite_all
 mpi_file_iwrite_at
 mpi_file_iwrite_at_all
 mpi_file_iwrite_shared
-mpi_file_open
 mpi_file_preallocate
 mpi_file_read
 mpi_file_read_all
@@ -141,9 +139,7 @@ mpi_file_seek
 mpi_file_seek_shared
 mpi_file_set_atomicity
 mpi_file_set_errhandler
-mpi_file_set_info
 mpi_file_set_size
-mpi_file_set_view
 mpi_file_sync
 mpi_file_write
 mpi_file_write_all
@@ -255,7 +251,6 @@ mpi_neighbor_allgather
 mpi_neighbor_allgather_init
 mpi_neighbor_allgatherv
 mpi_neighbor_allgatherv_init
-mpi_neighbor_alltoall
 mpi_neighbor_alltoall_init
 mpi_neighbor_alltoallv
 mpi_neighbor_alltoallv_init
@@ -317,8 +312,8 @@ mpi_ssend
 mpi_ssend_init
 mpi_start
 mpi_startall
-mpi_status_c2f08
 mpi_status_c2f
+mpi_status_c2f08
 mpi_status_f082c
 mpi_status_f082f
 mpi_status_f2c
@@ -375,7 +370,6 @@ mpi_type_create_indexed_block
 mpi_type_create_keyval
 mpi_type_create_resized
 mpi_type_create_struct
-mpi_type_create_subarray
 mpi_type_delete_attr
 mpi_type_dup
 mpi_type_extent
@@ -450,12 +444,16 @@ mpi_win_unlock_all
 mpi_win_wait
 mpi_wtick
 mpi_wtime
-opal
+mpif77
+mpijavac
+mpisync
+mpix_query_cuda_support
+ompi_affinity_str
+ompi_info
 opal_wrapper
-opalc++-wrapper-data
-opalcc-wrapper-data
 open-mpi
 openshmem
+oshmem_info
 shfree
 shmalloc
 shmem_addr_accessible
@@ -477,7 +475,6 @@ shmem_char_put_nbi
 shmem_clear_cache_inv
 shmem_clear_cache_line_inv
 shmem_clear_lock
-shmem_collect32
 shmem_collect64
 shmem_complexd_prod_to_all
 shmem_complexd_sum_to_all
