@@ -60,6 +60,10 @@ if not CMDNAME.lower() in allrefs_list:
 # Add a reference for each file to enable cross-references
 refline=".. _{}:\n".format(CMDNAME.lower())
 output_lines.append(refline)
+output_lines.append("")
+
+output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-, ]','=',CMDNAME)}")
+output_lines.append("\n.. include_body\n")
 
 # Read input as an array of lines
 with open(in_fname) as fp:
@@ -71,6 +75,10 @@ include_pat = re.compile("\.\. include::")
 
 # delimiter line (occurs after the heading text)
 dline=re.compile("^[=]+")
+d2line=re.compile("^[-]+")
+
+# listitem
+listitem_pat=re.compile("^[-\*] .*")
 
 # name
 name=re.compile("^name$", flags = re.IGNORECASE | re.MULTILINE)
@@ -115,9 +123,11 @@ c_lang=re.compile(".*C[^a-zA-Z]", re.IGNORECASE)
 
 # repl functions
 # :ref:`my-reference-label`:
-def mpicmdrepl(match):
+def cmdrepl(match):
     match = match.group()
     match = match.replace('(3)','')
+    match = match.replace('(2)','')
+    match = match.replace('(1)','')
     match = match.replace('`','')
     match = match.replace('*','')
     if match.lower() in allrefs_list:
@@ -132,7 +142,7 @@ def seealso_repl(match):
     if thecmd.lower() in allrefs_list:
         return (':ref:`' + thecmd + '` ')
     else:
-        return (thecmd)
+        return (match)
 
 # for labeling codeblocks
 LANGUAGE="FOOBAR_ERROR"
@@ -155,6 +165,7 @@ BULLETITEM=False
 LITERAL=False
 PARAM=False
 SEEALSO=False
+INDENT=""
 seealsolist=""
 
 # So we don't repeat combined or replaced lines
@@ -174,10 +185,10 @@ for i in range(len(in_lines)):
     prevline = in_lines[i-1].rstrip()
   if (i == len(in_lines) - 1):
     if ((not include_pat.match(curline)) and (not LITERAL)):
-      curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_]*[\`]*[\*]*',mpicmdrepl,curline)
-      curline = re.sub(r'[\*]*[\`]*shmem_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_]*[\`]*[\*]*',mpicmdrepl,curline)
+      curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_]*[\`]*[\*]*',cmdrepl,curline)
+      curline = re.sub(r'[\*]*[\`]*shmem_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_]*[\`]*[\*]*',cmdrepl,curline)
     if (not SKIP):
-      output_lines.append(f"{curline}")
+      output_lines.append(f"{INDENT}{curline}".rstrip())
   else:
     nextline = in_lines[i+1].rstrip()
     if (i + 3 < len(in_lines)):
@@ -190,46 +201,23 @@ for i in range(len(in_lines)):
       SKIP+=1
 
       if seealso.match(curline):
-         #output_lines.append('\n.. seealso:: ')
+         output_lines.append('\n.. seealso:: ')
          SEEALSO=True
-         SKIP += 2
-         d=1
-         seealsoline=""
-         while (d+i < len(in_lines)):
-           sline=in_lines[i+d].rstrip()
-           cmdline=""
-           if mpicmd.match(sline):
-             cmdline=re.sub(r"([Mm][Pp][Ii][^\\ (]*)",seealso_repl,sline)
-           elif shmemcmd.match(sline):
-             cmdline=re.sub(r"([Ss][Hh][Mm][Ee][Mm][^\\ (]*)",seealso_repl,sline)
-           elif selected.match(sline) or shared.match(sline) or socket.match(sline) or sscanf.match(sline): 
-             cmdline=sline
-           elif verbatim.match(sline) or dblline.match(sline):
-             SKIP += 1
-           else:
-             cmdline=sline
-             SKIP += 1
-           seealsolist=f"{seealsolist}{cmdline}"
-           SKIP += 1
-           d+=1
-         seealsolist=re.sub(r"\n","",seealsolist)
-         output_lines.append(f'\n.. seealso:: {seealsolist}')
-         break
-      else:
-        if paramsect.match(curline):
-          PARAM=True
-        if (curline.isupper()):
-          if name.match(curline): 
-            # Substitute program name because html index needs it.
-            # Only substitute delimeter for the first NAME heading because 
-            # build-doc seems to expect a single-rooted hierarchy.
-            output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-]','=',CMDNAME)}")
-            output_lines.append(".. include_body")
-          else:
-            output_lines.append(f"{curline}\n{re.sub('[A-Z,a-z,0-9,_,-]','-',curline)}")
+         INDENT="   "
+         SKIP += 1
+      # output from seealso to eof with indentation
+      elif paramsect.match(curline):
+        PARAM=True
+        output_lines.append(f"\n{curline}\n{re.sub('[A-Z,a-z,0-9,_,-, ]','-',curline)}".rstrip())
+      elif (curline.isupper()):
+        if (name.match(curline)):
+          SKIP+=1
         else:
+          # level 0 heading
+          output_lines.append(f"\n{curline}\n{re.sub('[A-Z,a-z,0-9,_,-, ]','-',curline)}".rstrip())
+      else:
           # level 2 heading
-          output_lines.append(f"{curline}\n{re.sub('=','^',nextline)}")
+          output_lines.append(f"\n{curline}\n{re.sub('=','^',nextline)}".rstrip())
     elif (literalpat.match(curline)):
           LITERAL=True
           prevlangline=prevline
@@ -242,20 +230,30 @@ for i in range(len(in_lines)):
           LANGUAGE = get_cb_language(prevlangline)
           if (not LANGUAGE):
             if not dline.match(nextnextnextline):
-              output_lines.append(f"{curline}")
+              output_lines.append(f"{INDENT}{curline}".rstrip())
           else:
             output_lines.append(f".. code-block:: {LANGUAGE}\n   :linenos:\n")
             SKIP+=1
+    elif listitem_pat.match(curline):
+      d=1
+      nextpline=in_lines[i+d].rstrip()
+      while nextpline and (not listitem_pat.match(nextline)):
+        curline=curline + " " + nextpline.rstrip()
+        d += 1
+        nextpline=in_lines[i+d].rstrip()
+        SKIP += 1
+      output_lines.append("{INDENT}{curline}")
     else:
-#      print(f"166: SKIP is {SKIP}; LITERAL is {LITERAL}; PARAM is {PARAM}")
       if (SKIP == 0):
         if LITERAL:
-          output_lines.append(f"{curline}")
+          output_lines.append(f"{curline}".rstrip())
         elif PARAM:
           # combine into parameter bullet-item (Note: check if multiline param)
-          if not curline:
-            output_lines.append(f"{curline}") 
-          else:
+# double check this
+          # if not curline:
+          #   output_lines.append(f"{curline}".rstrip()) 
+          # else:
+          if curline:
             paramline2=""
             paramline1 = re.sub('^[ ]*','',curline)
             if (contains_colon.match(curline)):
@@ -270,10 +268,11 @@ for i in range(len(in_lines)):
               nextpline=in_lines[i+d].rstrip()
               paramline2 += ' ' + re.sub('^[ ]*','',nextpline)
               SKIP += 1
-            output_lines.append(f"* ``{paramline1}``: {paramline2}\n")
+            output_lines.append(f"* ``{paramline1}``: {paramline2}\n".rstrip())
               # e.g., turn **MPI_Abort** and *MPI_Abort* into ``MPI_Abort``
         elif ((not LITERAL) and (not dline.match(nextline))):
-          curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',mpicmdrepl,curline)
+          curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',cmdrepl,curline)
+          curline = re.sub(r'[\*]*[\`]*shmem_[A-Za-z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',cmdrepl,curline)
           if bullet.match(curline):
             d=1
             nextbline=in_lines[i+d].rstrip()
@@ -283,9 +282,9 @@ for i in range(len(in_lines)):
               nextbline=in_lines[i+d].rstrip()
               bline2 += ' ' + re.sub('^[ ]*','',nextbline)
               SKIP += 1
-            output_lines.append(f"{curline} {bline2}\n")
+            output_lines.append(f"{INDENT}{curline} {bline2}\n".rstrip())
           else:
-            output_lines.append(f"{curline}")
+            output_lines.append(f"{INDENT}{curline}".rstrip())
       else: 
         SKIP-=1
 

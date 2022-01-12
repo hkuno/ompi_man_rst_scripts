@@ -34,30 +34,37 @@ vendors, application developers and computer science researchers.
 
    ompi/mpi/man/man3/MPI_Abort.3
    ompi/mpi/man/man3/MPI_Accumulate.3
-   ompi/mpi/man/man3/MPI_Address.3
    ompi/mpi/man/man3/MPI_Add_error_class.3
    ompi/mpi/man/man3/MPI_Add_error_code.3
    ompi/mpi/man/man3/MPI_Add_error_string.3
+   ompi/mpi/man/man3/MPI_Address.3
    ompi/mpi/man/man3/MPI_Aint_add.3
    ompi/mpi/man/man3/MPI_Aint_diff.3
    ompi/mpi/man/man3/MPI_Allgather.3
+   ompi/mpi/man/man3/MPI_Allgather_init.3
    ompi/mpi/man/man3/MPI_Allgatherv.3
+   ompi/mpi/man/man3/MPI_Allgatherv_init.3
    ompi/mpi/man/man3/MPI_Alloc_mem.3
    ompi/mpi/man/man3/MPI_Allreduce.3
+   ompi/mpi/man/man3/MPI_Allreduce_init.3
    ompi/mpi/man/man3/MPI_Alltoall.3
+   ompi/mpi/man/man3/MPI_Alltoall_init.3
    ompi/mpi/man/man3/MPI_Alltoallv.3
+   ompi/mpi/man/man3/MPI_Alltoallv_init.3
    ompi/mpi/man/man3/MPI_Alltoallw.3
+   ompi/mpi/man/man3/MPI_Alltoallw_init.3
    ompi/mpi/man/man3/MPI_Attr_delete.3
    ompi/mpi/man/man3/MPI_Attr_get.3
    ompi/mpi/man/man3/MPI_Attr_put.3
    ompi/mpi/man/man3/MPI_Barrier.3
+   ompi/mpi/man/man3/MPI_Barrier_init.3
    ompi/mpi/man/man3/MPI_Bcast.3
+   ompi/mpi/man/man3/MPI_Bcast_init.3
    ompi/mpi/man/man3/MPI_Bsend.3
    ompi/mpi/man/man3/MPI_Bsend_init.3
    ompi/mpi/man/man3/MPI_Buffer_attach.3
    ompi/mpi/man/man3/MPI_Buffer_detach.3
    ompi/mpi/man/man3/MPI_Cancel.3
-   ompi/mpi/man/man3/MPI_Cartdim_get.3
    ompi/mpi/man/man3/MPI_Cart_coords.3
    ompi/mpi/man/man3/MPI_Cart_create.3
    ompi/mpi/man/man3/MPI_Cart_get.3
@@ -65,6 +72,7 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Cart_rank.3
    ompi/mpi/man/man3/MPI_Cart_shift.3
    ompi/mpi/man/man3/MPI_Cart_sub.3
+   ompi/mpi/man/man3/MPI_Cartdim_get.3
    ompi/mpi/man/man3/MPI_Close_port.3
    ompi/mpi/man/man3/MPI_Comm_accept.3
    ompi/mpi/man/man3/MPI_Comm_c2f.3
@@ -116,6 +124,7 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Error_class.3
    ompi/mpi/man/man3/MPI_Error_string.3
    ompi/mpi/man/man3/MPI_Exscan.3
+   ompi/mpi/man/man3/MPI_Exscan_init.3
    ompi/mpi/man/man3/MPI_Fetch_and_op.3
    ompi/mpi/man/man3/MPI_File_c2f.3
    ompi/mpi/man/man3/MPI_File_call_errhandler.3
@@ -182,7 +191,9 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Finalized.3
    ompi/mpi/man/man3/MPI_Free_mem.3
    ompi/mpi/man/man3/MPI_Gather.3
+   ompi/mpi/man/man3/MPI_Gather_init.3
    ompi/mpi/man/man3/MPI_Gatherv.3
+   ompi/mpi/man/man3/MPI_Gatherv_init.3
    ompi/mpi/man/man3/MPI_Get.3
    ompi/mpi/man/man3/MPI_Get_accumulate.3
    ompi/mpi/man/man3/MPI_Get_address.3
@@ -192,12 +203,12 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Get_library_version.3
    ompi/mpi/man/man3/MPI_Get_processor_name.3
    ompi/mpi/man/man3/MPI_Get_version.3
-   ompi/mpi/man/man3/MPI_Graphdims_get.3
    ompi/mpi/man/man3/MPI_Graph_create.3
    ompi/mpi/man/man3/MPI_Graph_get.3
    ompi/mpi/man/man3/MPI_Graph_map.3
    ompi/mpi/man/man3/MPI_Graph_neighbors.3
    ompi/mpi/man/man3/MPI_Graph_neighbors_count.3
+   ompi/mpi/man/man3/MPI_Graphdims_get.3
    ompi/mpi/man/man3/MPI_Grequest_complete.3
    ompi/mpi/man/man3/MPI_Grequest_start.3
    ompi/mpi/man/man3/MPI_Group_c2f.3
@@ -243,11 +254,12 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Info_get.3
    ompi/mpi/man/man3/MPI_Info_get_nkeys.3
    ompi/mpi/man/man3/MPI_Info_get_nthkey.3
+   ompi/mpi/man/man3/MPI_Info_get_string.3
    ompi/mpi/man/man3/MPI_Info_get_valuelen.3
    ompi/mpi/man/man3/MPI_Info_set.3
    ompi/mpi/man/man3/MPI_Init.3
-   ompi/mpi/man/man3/MPI_Initialized.3
    ompi/mpi/man/man3/MPI_Init_thread.3
+   ompi/mpi/man/man3/MPI_Initialized.3
    ompi/mpi/man/man3/MPI_Intercomm_create.3
    ompi/mpi/man/man3/MPI_Intercomm_merge.3
    ompi/mpi/man/man3/MPI_Iprobe.3
@@ -256,12 +268,12 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Ireduce_scatter.3
    ompi/mpi/man/man3/MPI_Ireduce_scatter_block.3
    ompi/mpi/man/man3/MPI_Irsend.3
+   ompi/mpi/man/man3/MPI_Is_thread_main.3
    ompi/mpi/man/man3/MPI_Iscan.3
    ompi/mpi/man/man3/MPI_Iscatter.3
    ompi/mpi/man/man3/MPI_Iscatterv.3
    ompi/mpi/man/man3/MPI_Isend.3
    ompi/mpi/man/man3/MPI_Issend.3
-   ompi/mpi/man/man3/MPI_Is_thread_main.3
    ompi/mpi/man/man3/MPI_Keyval_create.3
    ompi/mpi/man/man3/MPI_Keyval_free.3
    ompi/mpi/man/man3/MPI_Lookup_name.3
@@ -270,25 +282,30 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Mprobe.3
    ompi/mpi/man/man3/MPI_Mrecv.3
    ompi/mpi/man/man3/MPI_Neighbor_allgather.3
+   ompi/mpi/man/man3/MPI_Neighbor_allgather_init.3
    ompi/mpi/man/man3/MPI_Neighbor_allgatherv.3
+   ompi/mpi/man/man3/MPI_Neighbor_allgatherv_init.3
    ompi/mpi/man/man3/MPI_Neighbor_alltoall.3
+   ompi/mpi/man/man3/MPI_Neighbor_alltoall_init.3
    ompi/mpi/man/man3/MPI_Neighbor_alltoallv.3
+   ompi/mpi/man/man3/MPI_Neighbor_alltoallv_init.3
    ompi/mpi/man/man3/MPI_Neighbor_alltoallw.3
-   ompi/mpi/man/man3/MPI_Open_port.3
+   ompi/mpi/man/man3/MPI_Neighbor_alltoallw_init.3
    ompi/mpi/man/man3/MPI_Op_c2f.3
    ompi/mpi/man/man3/MPI_Op_commutative.3
    ompi/mpi/man/man3/MPI_Op_create.3
    ompi/mpi/man/man3/MPI_Op_f2c.3
    ompi/mpi/man/man3/MPI_Op_free.3
+   ompi/mpi/man/man3/MPI_Open_port.3
    ompi/mpi/man/man3/MPI_Pack.3
    ompi/mpi/man/man3/MPI_Pack_external.3
    ompi/mpi/man/man3/MPI_Pack_external_size.3
    ompi/mpi/man/man3/MPI_Pack_size.3
    ompi/mpi/man/man3/MPI_Parrived.3
-   ompi/mpi/man/man3/MPI_Pready_range.3
    ompi/mpi/man/man3/MPI_Pcontrol.3
    ompi/mpi/man/man3/MPI_Pready.3
    ompi/mpi/man/man3/MPI_Pready_list.3
+   ompi/mpi/man/man3/MPI_Pready_range.3
    ompi/mpi/man/man3/MPI_Precv_init.3
    ompi/mpi/man/man3/MPI_Probe.3
    ompi/mpi/man/man3/MPI_Psend_init.3
@@ -299,9 +316,12 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Recv.3
    ompi/mpi/man/man3/MPI_Recv_init.3
    ompi/mpi/man/man3/MPI_Reduce.3
+   ompi/mpi/man/man3/MPI_Reduce_init.3
    ompi/mpi/man/man3/MPI_Reduce_local.3
    ompi/mpi/man/man3/MPI_Reduce_scatter.3
    ompi/mpi/man/man3/MPI_Reduce_scatter_block.3
+   ompi/mpi/man/man3/MPI_Reduce_scatter_block_init.3
+   ompi/mpi/man/man3/MPI_Reduce_scatter_init.3
    ompi/mpi/man/man3/MPI_Register_datarep.3
    ompi/mpi/man/man3/MPI_Request_c2f.3
    ompi/mpi/man/man3/MPI_Request_f2c.3
@@ -313,12 +333,15 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Rsend.3
    ompi/mpi/man/man3/MPI_Rsend_init.3
    ompi/mpi/man/man3/MPI_Scan.3
+   ompi/mpi/man/man3/MPI_Scan_init.3
    ompi/mpi/man/man3/MPI_Scatter.3
+   ompi/mpi/man/man3/MPI_Scatter_init.3
    ompi/mpi/man/man3/MPI_Scatterv.3
+   ompi/mpi/man/man3/MPI_Scatterv_init.3
    ompi/mpi/man/man3/MPI_Send.3
+   ompi/mpi/man/man3/MPI_Send_init.3
    ompi/mpi/man/man3/MPI_Sendrecv.3
    ompi/mpi/man/man3/MPI_Sendrecv_replace.3
-   ompi/mpi/man/man3/MPI_Send_init.3
    ompi/mpi/man/man3/MPI_Sizeof.3
    ompi/mpi/man/man3/MPI_Ssend.3
    ompi/mpi/man/man3/MPI_Ssend_init.3
@@ -333,11 +356,39 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Status_set_cancelled.3
    ompi/mpi/man/man3/MPI_Status_set_elements.3
    ompi/mpi/man/man3/MPI_Status_set_elements_x.3
+   ompi/mpi/man/man3/MPI_T_category_changed.3
+   ompi/mpi/man/man3/MPI_T_category_get_categories.3
+   ompi/mpi/man/man3/MPI_T_category_get_cvars.3
+   ompi/mpi/man/man3/MPI_T_category_get_info.3
+   ompi/mpi/man/man3/MPI_T_category_get_num.3
+   ompi/mpi/man/man3/MPI_T_category_get_pvars.3
+   ompi/mpi/man/man3/MPI_T_cvar_get_info.3
+   ompi/mpi/man/man3/MPI_T_cvar_get_num.3
+   ompi/mpi/man/man3/MPI_T_cvar_handle_alloc.3
+   ompi/mpi/man/man3/MPI_T_cvar_handle_free.3
+   ompi/mpi/man/man3/MPI_T_cvar_read.3
+   ompi/mpi/man/man3/MPI_T_cvar_write.3
+   ompi/mpi/man/man3/MPI_T_enum_get_info.3
+   ompi/mpi/man/man3/MPI_T_enum_get_item.3
+   ompi/mpi/man/man3/MPI_T_finalize.3
+   ompi/mpi/man/man3/MPI_T_init_thread.3
+   ompi/mpi/man/man3/MPI_T_pvar_get_info.3
+   ompi/mpi/man/man3/MPI_T_pvar_get_num.3
+   ompi/mpi/man/man3/MPI_T_pvar_handle_alloc.3
+   ompi/mpi/man/man3/MPI_T_pvar_handle_free.3
+   ompi/mpi/man/man3/MPI_T_pvar_read.3
+   ompi/mpi/man/man3/MPI_T_pvar_readreset.3
+   ompi/mpi/man/man3/MPI_T_pvar_reset.3
+   ompi/mpi/man/man3/MPI_T_pvar_session_create.3
+   ompi/mpi/man/man3/MPI_T_pvar_session_free.3
+   ompi/mpi/man/man3/MPI_T_pvar_start.3
+   ompi/mpi/man/man3/MPI_T_pvar_stop.3
+   ompi/mpi/man/man3/MPI_T_pvar_write.3
    ompi/mpi/man/man3/MPI_Test.3
+   ompi/mpi/man/man3/MPI_Test_cancelled.3
    ompi/mpi/man/man3/MPI_Testall.3
    ompi/mpi/man/man3/MPI_Testany.3
    ompi/mpi/man/man3/MPI_Testsome.3
-   ompi/mpi/man/man3/MPI_Test_cancelled.3
    ompi/mpi/man/man3/MPI_Topo_test.3
    ompi/mpi/man/man3/MPI_Type_c2f.3
    ompi/mpi/man/man3/MPI_Type_commit.3
@@ -380,34 +431,6 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Type_struct.3
    ompi/mpi/man/man3/MPI_Type_ub.3
    ompi/mpi/man/man3/MPI_Type_vector.3
-   ompi/mpi/man/man3/MPI_T_category_changed.3
-   ompi/mpi/man/man3/MPI_T_category_get_categories.3
-   ompi/mpi/man/man3/MPI_T_category_get_cvars.3
-   ompi/mpi/man/man3/MPI_T_category_get_info.3
-   ompi/mpi/man/man3/MPI_T_category_get_num.3
-   ompi/mpi/man/man3/MPI_T_category_get_pvars.3
-   ompi/mpi/man/man3/MPI_T_cvar_get_info.3
-   ompi/mpi/man/man3/MPI_T_cvar_get_num.3
-   ompi/mpi/man/man3/MPI_T_cvar_handle_alloc.3
-   ompi/mpi/man/man3/MPI_T_cvar_handle_free.3
-   ompi/mpi/man/man3/MPI_T_cvar_read.3
-   ompi/mpi/man/man3/MPI_T_cvar_write.3
-   ompi/mpi/man/man3/MPI_T_enum_get_info.3
-   ompi/mpi/man/man3/MPI_T_enum_get_item.3
-   ompi/mpi/man/man3/MPI_T_finalize.3
-   ompi/mpi/man/man3/MPI_T_init_thread.3
-   ompi/mpi/man/man3/MPI_T_pvar_get_info.3
-   ompi/mpi/man/man3/MPI_T_pvar_get_num.3
-   ompi/mpi/man/man3/MPI_T_pvar_handle_alloc.3
-   ompi/mpi/man/man3/MPI_T_pvar_handle_free.3
-   ompi/mpi/man/man3/MPI_T_pvar_read.3
-   ompi/mpi/man/man3/MPI_T_pvar_readreset.3
-   ompi/mpi/man/man3/MPI_T_pvar_reset.3
-   ompi/mpi/man/man3/MPI_T_pvar_session_create.3
-   ompi/mpi/man/man3/MPI_T_pvar_session_free.3
-   ompi/mpi/man/man3/MPI_T_pvar_start.3
-   ompi/mpi/man/man3/MPI_T_pvar_stop.3
-   ompi/mpi/man/man3/MPI_T_pvar_write.3
    ompi/mpi/man/man3/MPI_Unpack.3
    ompi/mpi/man/man3/MPI_Unpack_external.3
    ompi/mpi/man/man3/MPI_Unpublish_name.3
@@ -458,11 +481,20 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Wtime.3
    ompi/mpi/man/man5/MPI_T.5
    ompi/mpi/man/man5/Open-MPI.5
-   oshmem/shmem/man/man3/intro_shmem.3
+   ompi/mpiext/affinity/c/OMPI_Affinity_str.3
+   ompi/mpiext/cuda/c/MPIX_Query_cuda_support.3
+   ompi/tools/mpisync/mpisync.1
+   ompi/tools/ompi_info/ompi_info.1
+   ompi/tools/wrappers/mpif77.1
+   ompi/tools/wrappers/mpijavac.1
+   opal/tools/wrappers/generic_wrapper.1
+   opal/tools/wrappers/opal_wrapper.1
    oshmem/shmem/man/man3/OpenSHMEM.3
+   oshmem/shmem/man/man3/_my_pe.3
+   oshmem/shmem/man/man3/_num_pes.3
+   oshmem/shmem/man/man3/intro_shmem.3
    oshmem/shmem/man/man3/shfree.3
    oshmem/shmem/man/man3/shmalloc.3
-   oshmem/shmem/man/man3/shmemalign.3
    oshmem/shmem/man/man3/shmem_addr_accessible.3
    oshmem/shmem/man/man3/shmem_align.3
    oshmem/shmem/man/man3/shmem_alltoall32.3
@@ -568,6 +600,31 @@ vendors, application developers and computer science researchers.
    oshmem/shmem/man/man3/shmem_iput128.3
    oshmem/shmem/man/man3/shmem_iput32.3
    oshmem/shmem/man/man3/shmem_iput64.3
+   oshmem/shmem/man/man3/shmem_long_add.3
+   oshmem/shmem/man/man3/shmem_long_and_to_all.3
+   oshmem/shmem/man/man3/shmem_long_cswap.3
+   oshmem/shmem/man/man3/shmem_long_fadd.3
+   oshmem/shmem/man/man3/shmem_long_fetch.3
+   oshmem/shmem/man/man3/shmem_long_finc.3
+   oshmem/shmem/man/man3/shmem_long_g.3
+   oshmem/shmem/man/man3/shmem_long_get.3
+   oshmem/shmem/man/man3/shmem_long_get_nbi.3
+   oshmem/shmem/man/man3/shmem_long_iget.3
+   oshmem/shmem/man/man3/shmem_long_inc.3
+   oshmem/shmem/man/man3/shmem_long_iput.3
+   oshmem/shmem/man/man3/shmem_long_max_to_all.3
+   oshmem/shmem/man/man3/shmem_long_min_to_all.3
+   oshmem/shmem/man/man3/shmem_long_or_to_all.3
+   oshmem/shmem/man/man3/shmem_long_p.3
+   oshmem/shmem/man/man3/shmem_long_prod_to_all.3
+   oshmem/shmem/man/man3/shmem_long_put.3
+   oshmem/shmem/man/man3/shmem_long_put_nbi.3
+   oshmem/shmem/man/man3/shmem_long_set.3
+   oshmem/shmem/man/man3/shmem_long_sum_to_all.3
+   oshmem/shmem/man/man3/shmem_long_swap.3
+   oshmem/shmem/man/man3/shmem_long_wait.3
+   oshmem/shmem/man/man3/shmem_long_wait_until.3
+   oshmem/shmem/man/man3/shmem_long_xor_to_all.3
    oshmem/shmem/man/man3/shmem_longdouble_g.3
    oshmem/shmem/man/man3/shmem_longdouble_get.3
    oshmem/shmem/man/man3/shmem_longdouble_get_nbi.3
@@ -605,31 +662,6 @@ vendors, application developers and computer science researchers.
    oshmem/shmem/man/man3/shmem_longlong_wait.3
    oshmem/shmem/man/man3/shmem_longlong_wait_until.3
    oshmem/shmem/man/man3/shmem_longlong_xor_to_all.3
-   oshmem/shmem/man/man3/shmem_long_add.3
-   oshmem/shmem/man/man3/shmem_long_and_to_all.3
-   oshmem/shmem/man/man3/shmem_long_cswap.3
-   oshmem/shmem/man/man3/shmem_long_fadd.3
-   oshmem/shmem/man/man3/shmem_long_fetch.3
-   oshmem/shmem/man/man3/shmem_long_finc.3
-   oshmem/shmem/man/man3/shmem_long_g.3
-   oshmem/shmem/man/man3/shmem_long_get.3
-   oshmem/shmem/man/man3/shmem_long_get_nbi.3
-   oshmem/shmem/man/man3/shmem_long_iget.3
-   oshmem/shmem/man/man3/shmem_long_inc.3
-   oshmem/shmem/man/man3/shmem_long_iput.3
-   oshmem/shmem/man/man3/shmem_long_max_to_all.3
-   oshmem/shmem/man/man3/shmem_long_min_to_all.3
-   oshmem/shmem/man/man3/shmem_long_or_to_all.3
-   oshmem/shmem/man/man3/shmem_long_p.3
-   oshmem/shmem/man/man3/shmem_long_prod_to_all.3
-   oshmem/shmem/man/man3/shmem_long_put.3
-   oshmem/shmem/man/man3/shmem_long_put_nbi.3
-   oshmem/shmem/man/man3/shmem_long_set.3
-   oshmem/shmem/man/man3/shmem_long_sum_to_all.3
-   oshmem/shmem/man/man3/shmem_long_swap.3
-   oshmem/shmem/man/man3/shmem_long_wait.3
-   oshmem/shmem/man/man3/shmem_long_wait_until.3
-   oshmem/shmem/man/man3/shmem_long_xor_to_all.3
    oshmem/shmem/man/man3/shmem_malloc.3
    oshmem/shmem/man/man3/shmem_my_pe.3
    oshmem/shmem/man/man3/shmem_n_pes.3
@@ -673,10 +705,10 @@ vendors, application developers and computer science researchers.
    oshmem/shmem/man/man3/shmem_udcflush_line.3
    oshmem/shmem/man/man3/shmem_wait.3
    oshmem/shmem/man/man3/shmem_wait_until.3
+   oshmem/shmem/man/man3/shmemalign.3
    oshmem/shmem/man/man3/shrealloc.3
    oshmem/shmem/man/man3/start_pes.3
-   oshmem/shmem/man/man3/_my_pe.3
-   oshmem/shmem/man/man3/_num_pes.3
+   oshmem/tools/oshmem_info/oshmem_info.1
 
 Questions?  Problems?
 =====================

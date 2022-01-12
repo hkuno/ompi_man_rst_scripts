@@ -23,6 +23,8 @@ import os
 APPNAME=os.path.basename(__file__)
 DIRNAME=os.path.dirname(__file__)
 ALLREFSFILE=DIRNAME + "/allrefs.txt"
+SEEALSO=False
+INDENT=""
 
 def usage():
     print(f"{APPNAME} <input_file> [<output_file>]\n")
@@ -50,6 +52,7 @@ if not CMDNAME.lower() in allrefs_list:
 
 # Add a reference for each file
 refline=".. _{}:\n".format(CMDNAME.lower())
+
 output_lines.append(refline)
 
 # delimiter line (occurs after the heading text)
@@ -76,9 +79,11 @@ brace_char=re.compile(".*[\]\(\)]", re.IGNORECASE)
 
 # repl functions
 # :ref:`my-reference-label`:
-def mpicmdrepl(match):
+def cmdrepl(match):
     match = match.group()
     match = match.replace('(3)','')
+    match = match.replace('(2)','')
+    match = match.replace('(1)','')
     match = match.replace('`','')
     match = match.replace('*','')
     if match.lower() in allrefs_list:
@@ -125,8 +130,8 @@ for i in range(len(in_lines)):
       # Substitute program name because html index needs it.
       # Only substitute delimeter for the first NAME heading because 
       # build-doc seems to expect a single-rooted hierarchy.
-      output_lines.append(f"{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-]','=',CMDNAME)}")
-      output_lines.append(".. include_body")
+      output_lines.append(f"\n{CMDNAME}\n{re.sub('[A-Z,a-z,0-9,_,-, ]','=',CMDNAME)}")
+      output_lines.append("\n.. include_body\n")
       SKIP += 2
       LITERAL=False
   
@@ -134,6 +139,7 @@ for i in range(len(in_lines)):
       SKIP += 2
       LITERAL=False
       SEEALSO=True
+      INDENT="   "
       d=1
       seealsoline=""
       while (d+i < len(in_lines)):
@@ -162,7 +168,8 @@ for i in range(len(in_lines)):
         curline = re.sub('-','^',curline)
 
       if not LITERAL and curline:
-        curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',mpicmdrepl,curline)
+        curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',cmdrepl,curline)
+        curline = re.sub(r'[\*]*[\`]*[Ss][Hh][Mm][Ee][Mm]_[A-Za-z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',cmdrepl,curline)
 
       output_lines.append(f"{curline}")
   else: 
@@ -179,7 +186,7 @@ if (out_fname):
   with open(out_fname,'w') as outfile:
     sys.stdout = outfile
     for line in output_lines:
-      print(line) 
+      print(line.rstrip()) 
 else:
     for line in output_lines:
-      print(line) 
+      print(line.rstrip()) 
