@@ -108,12 +108,21 @@ with open(in_fname) as fp:
 # delimiter line (occurs after the heading text)
 dline=re.compile("^[=]+")
 
+# find SYNOPSIS (to remove ';'
+SYNOPSIS_pat = re.compile("^SYNOPSIS")
+
+# find lines that include the pattern "#include <"
+codeblockinclude=re.compile(".*\#include \<")
+
 # So we don't repeat combined or replaced lines
 SKIP=0
 
 # keep track of state
 LITERAL=True
 seealsolist=""
+INCODEBLOCK=False
+INCODEBLOCKINCLUDE=False
+INSYNOPSIS=False
 
 # Walk through all the lines, working on a section at a time
 # If the current line contains 'code::' then LITERAL=True 
@@ -134,6 +143,7 @@ for i in range(len(in_lines)):
       output_lines.append("\n.. include_body\n")
       SKIP += 2
       LITERAL=False
+      INCODEBLOCK=False
   
   if seealso.match(curline) and dline.match(nextline):
       SKIP += 2
@@ -160,8 +170,10 @@ for i in range(len(in_lines)):
   elif (SKIP == 0):
       if codeblock.match(curline):
         LITERAL=True
+        INCODEBLOCK=True
       elif dline.match(curline):
         LITERAL=False
+        INCODEBLOCK=False
         curline = re.sub('=','-',curline)
       elif d2line.match(curline):
         LITERAL=False
@@ -170,8 +182,16 @@ for i in range(len(in_lines)):
       if not LITERAL and curline:
         curline = re.sub(r'[\*]*[\`]*MPI_[A-Z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',cmdrepl,curline)
         curline = re.sub(r'[\*]*[\`]*[Ss][Hh][Mm][Ee][Mm]_[A-Za-z][\*,()\[\]0-9A-Za-z_]*[()\[\]0-9A-Za-z_][\`]*[\*]*',cmdrepl,curline)
-
-      output_lines.append(f"{curline}")
+      elif LITERAL:
+        if INCODEBLOCK:
+          if codeblockinclude.match(curline):
+            INCODEBLOCKINCLUDE = True
+          else:
+            if INCODEBLOCKINCLUDE:
+              INCODEBLOCKINCLUDE = False
+              if (curline.rstrip() != ""):
+                output_lines.append("")
+      output_lines.append(f"{curline}".rstrip())
   else: 
       SKIP -= 1
 

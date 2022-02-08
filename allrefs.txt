@@ -456,7 +456,10 @@ mpisync
 mpix_query_cuda_support
 ompi_affinity_str
 ompi_info
+opal
 opal_wrapper
+opalc++-wrapper-data
+opalcc-wrapper-data
 open-mpi
 openshmem
 oshmem_info

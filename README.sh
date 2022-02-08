@@ -31,7 +31,7 @@ mkdir -p $BUILDRST
 [[ -L $BUILDDIR/rst ]] || [[ -f $BUILDDIR/rst ]] || ln -sf ../rst $BUILDDIR/
 
 BUILDHTML=./_build/html/
-MANDIRS="ompi/mpi/man oshmem/shmem/man opal/tools/wrappers oshmem/tools/oshmem_info "
+MANDIRS="ompi/mpi/man ompi/mpiext ompi/tools oshmem/shmem/man opal/tools/wrappers oshmem/tools/oshmem_info "
 
 TSTMAN_ORIG=$TMPDIR/tmpman_orig/
 TSTMAN_NEW=$TMPDIR/tmpman_new/

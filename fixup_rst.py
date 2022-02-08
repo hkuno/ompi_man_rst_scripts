@@ -72,6 +72,7 @@ with open(in_fname) as fp:
 # PATTERNS
 # include file
 include_pat = re.compile("\.\. include::")
+SYNOPSIS_pat = re.compile("^SYNOPSIS")
 
 # delimiter line (occurs after the heading text)
 dline=re.compile("^[=]+")
@@ -99,6 +100,9 @@ paramsect=re.compile(".*PARAMETER")
 
 # includes ':'
 contains_colon=re.compile(".*:")
+
+# find lines that contain the pattern "#include <"
+codeblockinclude=re.compile(".*\#include \<")
 
 # codeblock pattern
 literalpat=re.compile("^::")
@@ -163,6 +167,9 @@ def get_cb_language(aline):
 # for keeping track of state
 BULLETITEM=False
 LITERAL=False
+INCODEBLOCK=False
+INCODEBLOCKINCLUDE = False
+INSYNOPSIS = False
 PARAM=False
 SEEALSO=False
 INDENT=""
@@ -181,6 +188,7 @@ for i in range(len(in_lines)):
   curline = in_lines[i].rstrip()
   if unliteral.match(curline):
     LITERAL=False
+    INCODEBLOCK=False
   if (i > 0):
     prevline = in_lines[i-1].rstrip()
   if (i == len(in_lines) - 1):
@@ -197,11 +205,16 @@ for i in range(len(in_lines)):
       nextnextnextline = ""
     if dline.match(nextline):
       LITERAL=False
+      INCODEBLOCK=False
       PARAM=False
       SKIP+=1
+      if (SYNOPSIS_pat.match(curline)):
+        INSYNOPSIS = True
+      else:
+        INSYNOPSIS = False
 
       if seealso.match(curline):
-         output_lines.append('\n.. seealso:: ')
+         output_lines.append('\n.. seealso::')
          SEEALSO=True
          INDENT="   "
          SKIP += 1
@@ -232,7 +245,9 @@ for i in range(len(in_lines)):
             if not dline.match(nextnextnextline):
               output_lines.append(f"{INDENT}{curline}".rstrip())
           else:
-            output_lines.append(f".. code-block:: {LANGUAGE}\n   :linenos:\n")
+            # output_lines.append(f".. code-block:: {LANGUAGE}\n   :linenos:\n")
+            output_lines.append(f".. code-block:: {LANGUAGE}\n")
+            INCODEBLOCK = True
             SKIP+=1
     elif listitem_pat.match(curline):
       d=1
@@ -246,7 +261,20 @@ for i in range(len(in_lines)):
     else:
       if (SKIP == 0):
         if LITERAL:
-          output_lines.append(f"{curline}".rstrip())
+          if INCODEBLOCK:
+            if INSYNOPSIS:
+              curline = re.sub(';','',curline)
+            if codeblockinclude.match(curline):
+              INCODEBLOCKINCLUDE = True
+              output_lines.append(f"{curline}".rstrip())
+            else:
+              if INCODEBLOCKINCLUDE:
+                INCODEBLOCKINCLUDE = False
+                if (curline.rstrip() != ""):
+                  output_lines.append("")
+              output_lines.append(f"{curline}".rstrip())
+          else:
+              output_lines.append(f"{curline}".rstrip())
         elif PARAM:
           # combine into parameter bullet-item (Note: check if multiline param)
 # double check this
