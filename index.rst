@@ -81,6 +81,7 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Comm_connect.3
    ompi/mpi/man/man3/MPI_Comm_create.3
    ompi/mpi/man/man3/MPI_Comm_create_errhandler.3
+   ompi/mpi/man/man3/MPI_Comm_create_from_group.3
    ompi/mpi/man/man3/MPI_Comm_create_group.3
    ompi/mpi/man/man3/MPI_Comm_create_keyval.3
    ompi/mpi/man/man3/MPI_Comm_delete_attr.3
@@ -97,6 +98,8 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Comm_get_parent.3
    ompi/mpi/man/man3/MPI_Comm_group.3
    ompi/mpi/man/man3/MPI_Comm_idup.3
+   ompi/mpi/man/man3/MPI_Comm_idup_with_info.3
+   ompi/mpi/man/man3/MPI_Comm_idup_with_info.3.rst
    ompi/mpi/man/man3/MPI_Comm_join.3
    ompi/mpi/man/man3/MPI_Comm_rank.3
    ompi/mpi/man/man3/MPI_Comm_remote_group.3
@@ -217,6 +220,7 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Group_excl.3
    ompi/mpi/man/man3/MPI_Group_f2c.3
    ompi/mpi/man/man3/MPI_Group_free.3
+   ompi/mpi/man/man3/MPI_Group_from_session_pset.3.rst
    ompi/mpi/man/man3/MPI_Group_incl.3
    ompi/mpi/man/man3/MPI_Group_intersection.3
    ompi/mpi/man/man3/MPI_Group_range_excl.3
@@ -261,6 +265,7 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Init_thread.3
    ompi/mpi/man/man3/MPI_Initialized.3
    ompi/mpi/man/man3/MPI_Intercomm_create.3
+   ompi/mpi/man/man3/MPI_Intercomm_create_from_groups.3.rst
    ompi/mpi/man/man3/MPI_Intercomm_merge.3
    ompi/mpi/man/man3/MPI_Iprobe.3
    ompi/mpi/man/man3/MPI_Irecv.3
@@ -273,6 +278,8 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Iscatter.3
    ompi/mpi/man/man3/MPI_Iscatterv.3
    ompi/mpi/man/man3/MPI_Isend.3
+   ompi/mpi/man/man3/MPI_Isendrecv.3.rst
+   ompi/mpi/man/man3/MPI_Isendrecv_replace.3.rst
    ompi/mpi/man/man3/MPI_Issend.3
    ompi/mpi/man/man3/MPI_Keyval_create.3
    ompi/mpi/man/man3/MPI_Keyval_free.3
@@ -342,6 +349,14 @@ vendors, application developers and computer science researchers.
    ompi/mpi/man/man3/MPI_Send_init.3
    ompi/mpi/man/man3/MPI_Sendrecv.3
    ompi/mpi/man/man3/MPI_Sendrecv_replace.3
+   ompi/mpi/man/man3/MPI_Session_create_errhandler.3.rst
+   ompi/mpi/man/man3/MPI_Session_f2c.3.rst
+   ompi/mpi/man/man3/MPI_Session_finalize.3.rst
+   ompi/mpi/man/man3/MPI_Session_get_info.3.rst
+   ompi/mpi/man/man3/MPI_Session_get_nth_pset.3.rst
+   ompi/mpi/man/man3/MPI_Session_get_num_psets.3.rst
+   ompi/mpi/man/man3/MPI_Session_get_pset_info.3.rst
+   ompi/mpi/man/man3/MPI_Session_init.3.rst
    ompi/mpi/man/man3/MPI_Sizeof.3
    ompi/mpi/man/man3/MPI_Ssend.3
    ompi/mpi/man/man3/MPI_Ssend_init.3
@@ -488,6 +503,7 @@ vendors, application developers and computer science researchers.
    ompi/tools/wrappers/mpif77.1
    ompi/tools/wrappers/mpijavac.1
    opal/tools/wrappers/generic_wrapper.1
+   opal/tools/wrappers/opal.pc..rst
    opal/tools/wrappers/opal_wrapper.1
    oshmem/shmem/man/man3/OpenSHMEM.3
    oshmem/shmem/man/man3/_my_pe.3

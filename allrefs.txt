@@ -51,6 +51,7 @@ mpi_comm_compare
 mpi_comm_connect
 mpi_comm_create
 mpi_comm_create_errhandler
+mpi_comm_create_from_group
 mpi_comm_create_group
 mpi_comm_create_keyval
 mpi_comm_delete_attr
@@ -67,6 +68,7 @@ mpi_comm_get_name
 mpi_comm_get_parent
 mpi_comm_group
 mpi_comm_idup
+mpi_comm_idup_with_info
 mpi_comm_join
 mpi_comm_rank
 mpi_comm_remote_group
@@ -187,6 +189,7 @@ mpi_group_difference
 mpi_group_excl
 mpi_group_f2c
 mpi_group_free
+mpi_group_from_session_pset
 mpi_group_incl
 mpi_group_intersection
 mpi_group_range_excl
@@ -231,6 +234,7 @@ mpi_init
 mpi_init_thread
 mpi_initialized
 mpi_intercomm_create
+mpi_intercomm_create_from_groups
 mpi_intercomm_merge
 mpi_iprobe
 mpi_irecv
@@ -243,6 +247,8 @@ mpi_iscan
 mpi_iscatter
 mpi_iscatterv
 mpi_isend
+mpi_isendrecv
+mpi_isendrecv_replace
 mpi_issend
 mpi_keyval_create
 mpi_keyval_free
@@ -312,6 +318,14 @@ mpi_send
 mpi_send_init
 mpi_sendrecv
 mpi_sendrecv_replace
+mpi_session_create_errhandler
+mpi_session_f2c
+mpi_session_finalize
+mpi_session_get_info
+mpi_session_get_nth_pset
+mpi_session_get_num_psets
+mpi_session_get_pset_info
+mpi_session_init
 mpi_sizeof
 mpi_ssend
 mpi_ssend_init

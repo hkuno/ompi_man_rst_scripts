@@ -150,6 +150,11 @@ if [[ 1 -eq 1 ]] ; then
     date
 fi
 
+# ARGH. Tables are hard.
+if [[ 1 -eq 1 ]] ; then
+    cp $APPDIR/Open-MPI.5.rst $BUILDRST/ompi/mpi/man/man5/Open-MPI.5.rst
+fi
+
 # use sphinx-build to create html files
 if [[ 0 -eq 1 ]] ; then
     echo "About to create html files"
